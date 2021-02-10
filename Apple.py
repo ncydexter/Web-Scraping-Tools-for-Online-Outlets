@@ -1,9 +1,5 @@
 '''
 This program aims to scrape product information from https://www.apple.com/hk/.
-Program written by : Shirry Wan
-Program created on : 20.12.2020
-Last modified by   : Shirry Wan
-Last modified on   : 20.12.2020
 '''
 
 import requests
