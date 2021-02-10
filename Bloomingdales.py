@@ -1,9 +1,5 @@
 '''
 This program aims to scrape product information from https://www.bloomingdales.com/.
-Program written by : Shirry Wan
-Program created on : 17.06.2020
-Last modified by   : Shirry Wan
-Last modified on   : 18.12.2020
 '''
 
 import requests
