@@ -2,8 +2,8 @@
 This program aims to scrape product information from https://www.hktvmall.com/.
 Program written by : Shirry Wan
 Program created on : 17.06.2020
-Last modified by   : Shirry Wan
-Last modified on   : 12.01.2021
+Last modified by   : Dexter Ng
+Last modified on   : 17.02.2021
 '''
 
 import requests
@@ -18,7 +18,8 @@ import sys
 import os
 import pandas as pd
 
-user_agent_list = pd.read_csv("R:/CPI_SD/Online Pricing/User Agent/user_agent_20210217.csv")
+#user_agent_list = pd.read_csv("R:/CPI_SD/Online Pricing/User Agent/user_agent_20210217.csv")
+user_agent_list = pd.read_csv("C:/Users/ncyde/Desktop/Dexter/Github/Web-Scraping-Tools-for-Online-Outlets/user_agent_20210217.csv")
 user_agent_list = user_agent_list.values.tolist()
 
 user_agent = random.choice(user_agent_list)
@@ -32,7 +33,8 @@ headers = {
     'Upgrade-Insecure-Requests': '1',
 }
 
-proxy_list = pd.read_csv("R:/CPI_SD/Online Pricing/Scraper Specification/proxy_20210217.csv")
+#proxy_list = pd.read_csv("R:/CPI_SD/Online Pricing/Scraper Specification/proxy_20210217.csv")
+proxy_list = pd.read_csv("C:/Users/ncyde/Desktop/Dexter/Github/Web-Scraping-Tools-for-Online-Outlets/proxy_20210217.csv")
 proxy_list = proxy_list.values.tolist()
 
 proxy = random.choice(proxy_list)
@@ -103,7 +105,7 @@ for URL in URLs:
 
         while no_trial < max_trial:
             try:
-                html = requests.get(URL, headers=headers)
+                html = requests.get(URL, headers=headers, proxies=proxies)
                 soup = BeautifulSoup(html.text, 'html.parser')
                 break
             except:
