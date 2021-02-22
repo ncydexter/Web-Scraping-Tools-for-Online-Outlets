@@ -22,34 +22,20 @@ import pandas as pd
 user_agent_list = pd.read_csv("C:/Users/ncyde/Desktop/Dexter/Github/Web-Scraping-Tools-for-Online-Outlets/user_agent_20210217.csv")
 user_agent_list = user_agent_list.values.tolist()
 
-user_agent = random.choice(user_agent_list)
-
-headers = {
-    'User-Agent': user_agent,
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-    'Accept-Language': 'en-US,en;q=0.5',
-    'DNT': '1',
-    'Connection': 'keep-alive',
-    'Upgrade-Insecure-Requests': '1',
-}
 
 #proxy_list = pd.read_csv("R:/CPI_SD/Online Pricing/Scraper Specification/proxy_20210217.csv")
 proxy_list = pd.read_csv("C:/Users/ncyde/Desktop/Dexter/Github/Web-Scraping-Tools-for-Online-Outlets/proxy_20210217.csv")
 proxy_list = proxy_list.values.tolist()
 
-proxy = random.choice(proxy_list)
 
-proxies = {
-    "http": proxy,
-	"https": proxy
-}
 OutletName = 'HKTVmall'
 output_fileName = OutletName
-output_path = os.getcwd() + '/../Data/Regular/'
+#output_path = os.getcwd() + '/../Data/Regular/'
+output_path = os.getcwd()
 outdate = datetime.datetime.now().strftime('%Y%m%d')
 outtime = datetime.datetime.now().strftime('%H%M')
 
-sys.stdout = open(output_path + output_fileName + '_' + outdate + '-' + outtime + '_log.txt', 'w', encoding='utf-8-sig')
+#sys.stdout = open(output_path + output_fileName + '_' + outdate + '-' + outtime + '_log.txt', 'w', encoding='utf-8-sig')
 
 print('Start of Program Run')
 print('********************************************************************************')
@@ -105,9 +91,35 @@ for URL in URLs:
 
         while no_trial < max_trial:
             try:
-                html = requests.get(URL, headers=headers, proxies=proxies)
+                user_agent = random.choice(user_agent_list)
+
+                headers = {
+                    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36',
+                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                    'Accept-Language': 'en-US,en;q=0.5',
+                    'DNT': '1',
+                    'Connection': 'keep-alive',
+                    'Upgrade-Insecure-Requests': '1',
+                }
+                print("user_agent: ", user_agent)
+
+                proxy = random.choice(proxy_list)
+
+                proxies = {
+                    "http": proxy,
+                    "https": proxy,
+                }
+                print("proxy: ", proxy)
+
+                print("URL: ", URL)
+
+                html = requests.get(URL)
+                
+
+                
                 soup = BeautifulSoup(html.text, 'html.parser')
                 break
+
             except:
                 no_trial += 1
                 time.sleep(random.random() * 100 + random.random() * random.random() * 5 + 8)
@@ -473,7 +485,8 @@ for URL in URLs:
             writer = csv.writer(file)
             writer.writerow(RawQuotation)
 
-        time.sleep(random.random() * 2)
+        #time.sleep(random.random() * 2)
+        time.sleep(random.random() * 10 + random.random() * random.random() * 10 + 2)
 
     except:
         print(URL)
@@ -504,4 +517,4 @@ print('*************************************************************************
 print('End of Program Run')
 print('Successfully Output CSV files')
 
-sys.stdout.close()
+#sys.stdout.close()
